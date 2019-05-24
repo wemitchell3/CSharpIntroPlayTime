@@ -18,9 +18,12 @@ namespace CSharpIntroPlayTime
             {
                 GroceryList();
             }
-            else  // change this to only call GuessingGame() when the user enters option "B"
+            // change this to only call GuessingGame() when the user enters option "B"
+            if  (response == "B" || response == "b") 
             {
                 GuessingGame();
+            } else {
+                Console.WriteLine("Please enter either A or B");
             }
 
             // If the user didn't input an "A" or "B" print a message 
@@ -38,16 +41,19 @@ namespace CSharpIntroPlayTime
             while (!string.IsNullOrWhiteSpace(input))
             {
                 groceries.Add(input);
-
                 // Ask for the input again
+                input = Console.ReadLine();
             }
-
             Console.WriteLine();
             Console.WriteLine("Your grocery list:");
             foreach (string grocery in groceries)
             {
+                Console.WriteLine(grocery);
                 // Write the grocery to the console
+                
             }
+            Main(null);
+            
         }
 
         static void GuessingGame()
@@ -56,11 +62,18 @@ namespace CSharpIntroPlayTime
             //  This is the number the user is trying to guess
             int answer = new Random().Next(1, 21);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Console.Write("Guess a number between 1 and 20: ");
                 int guess = int.Parse(Console.ReadLine());
-
+                if (guess > answer) 
+                {
+                    Console.WriteLine("Too High");
+                }
+                if (guess < answer)
+                {
+                    Console.WriteLine("Too Low");
+                }
                 // Add a conditional to determine if the user's guess is higher than the answer
                 //  If so, print "Too High!" to the console
 
@@ -68,11 +81,16 @@ namespace CSharpIntroPlayTime
                 //  If so, print "Too Low!" to the console
 
                 // When the user guesses correctly, tell them and return from the method
+                else if (guess == answer) {
                 Console.WriteLine("You got it!");
                 return;
+                }
             }
 
             Console.WriteLine("Better luck next time...");
+            Console.WriteLine("The correct answer was: ");
+            Console.WriteLine(answer);
+
         }
     }
 }
